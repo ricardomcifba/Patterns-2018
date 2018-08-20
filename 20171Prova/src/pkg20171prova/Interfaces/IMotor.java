@@ -3,14 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package interfaces;
+package pkg20171prova.Interfaces;
 
 /**
  *
- * @author aluno
+ * @author e127787
  */
-class IMotor {
+public interface IMotor {
     
-    public 
+    public abstract IMotor createMotor();
     
 }
