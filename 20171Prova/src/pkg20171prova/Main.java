@@ -13,12 +13,8 @@ public class Main {
     public static void main(String[] args) {
         
         IMyCar carro = Car.getInstance(4,3,2);
-        
-        //Pneu.initialize(carro.getQtdPneu());
-        //Chassi.initialize(carro.getQtdChassi());
-        Motor.initialize(carro.getQtdMotor());
-        
-       IMotor m1 = carro.createMotor();
+                        
+        IMotor m1 = carro.createMotor();
         IMotor m2 = carro.createMotor();
         IMotor m3 = carro.createMotor();
         IMotor m4 = carro.createMotor();

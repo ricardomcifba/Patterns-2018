@@ -1,0 +1,149 @@
+public class Main {
+    
+    public static void main(String[] args) {
+        
+        IMyCar carro = Car.getInstance(4,3,2);
+        
+        //Pneu.initialize(carro.getQtdPneu());
+        //Chassi.initialize(carro.getQtdChassi());
+        Motor.initialize(carro.getQtdMotor());
+        
+        IMotor m1 = carro.createMotor();
+        IMotor m2 = carro.createMotor();
+        IMotor m3 = carro.createMotor();
+        IMotor m4 = carro.createMotor();
+        
+        System.out.println(m1+" \n" + m2+" \n"  +m3+" \n"  + m4);
+       
+    }
+    
+}
+
+public interface IMyCar {
+
+    public IMotor createMotor();
+    public IChassi createChassi();
+    public IPneu createPneu();
+
+    public void setQtdPneus(int pneu);
+
+    public void setQtdChassi(int chassi);
+
+    public void setQtdMotor(int motor);
+
+    public int getQtdMotor();
+    
+    public int getQtdChassi();
+    
+    public int getQtdPneu();
+    
+}
+
+public class Car implements IMyCar{    
+        
+    private int qtdPneus;
+    private int qtdChassi;
+    private int qtdMotor;
+
+    public void setQtdPneus(int qtdPneus) {
+        this.qtdPneus = qtdPneus;
+    }
+
+    public void setQtdChassi(int qtdChassi) {
+        this.qtdChassi = qtdChassi;
+    }
+
+    public void setQtdMotor(int qtdMotor) {
+        this.qtdMotor = qtdMotor;
+    }
+
+    public int getQtdPneu() {
+        return qtdPneus;
+    }
+
+    public int getQtdChassi() {
+        return qtdChassi;
+    }
+
+    public int getQtdMotor() {
+        return qtdMotor;
+    }
+
+private Car(){
+    
+    }  
+
+    public static IMyCar getInstance(int pneu, int chassi, int motor) {
+        
+        Car car = new Car();
+        
+        car.setQtdPneus(pneu);
+        car.setQtdChassi(chassi);
+        car.setQtdMotor(motor);
+        
+        return car;
+    }
+    
+    public IPneu createPneu(){
+        return new Pneu();
+    }
+    
+    public IChassi createChassi(){
+        return new Chassi();
+    }
+    
+    public IMotor createMotor(){
+        return Motor.getInstance();
+    }
+    
+}
+
+public interface IPneu {
+    
+    public abstract IPneu createPneu();
+    
+}
+
+public interface IMotor {
+    
+    public abstract IMotor createMotor();
+    
+}
+
+public interface IChassi {
+    
+    public abstract IChassi createChassi();
+    
+}
+
+public class Motor implements IMotor{
+    
+    private static final ArrayList<Motor> instMotor = new ArrayList<Motor>();
+    private static int countMotor = 0;
+    private static int maximo; 
+    
+    public static void initialize(int valor){
+        maximo = valor;
+    }    
+    protected Motor() {
+            
+    }    
+    public static synchronized Motor getInstance(){
+        
+        Motor instancia = null;
+        
+        if(instMotor.size() == maximo)
+            instancia = instMotor.get(countMotor%maximo);
+        else{
+            instancia = new Motor();
+            instMotor.add(instancia);
+        }
+        countMotor++;
+        return instancia;
+    }
+
+    public IMotor createMotor() {
+        return Motor.getInstance();
+    }
+
+}

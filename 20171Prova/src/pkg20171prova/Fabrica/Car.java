@@ -47,16 +47,20 @@ public class Car implements IMyCar{
         car.setQtdPneus(pneu);
         car.setQtdChassi(chassi);
         car.setQtdMotor(motor);
-        
+        Pneu.initialize(car.getQtdPneu());
+        Chassi.initialize(car.getQtdChassi());
+        Motor.initialize(car.getQtdMotor());
         return car;
     }
     
+        
+    
     public IPneu createPneu(){
-        return new Pneu(); //mudar para
+        return Pneu.getInstance(); //mudar para
     }
     
     public IChassi createChassi(){
-        return new Chassi();// mudar para getInstance();
+        return Chassi.getInstance();// mudar para getInstance();
     }
     
     public IMotor createMotor(){
